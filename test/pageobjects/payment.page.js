@@ -7,11 +7,11 @@ class PaymentPage extends Page {
     get cardExpiryMonthInput() { return $('[data-qa="expiry-month"]') }
     get cardExpiryYearInput() { return $('[data-qa="expiry-year"]') }
     get cvvInput() { return $('[placeholder="ex. 311"]') }
-    get payNowButton() { return $('[id="submit"]') }
+    get payNowButton() { return $('[class="form-control btn btn-primary submit-button"]') }
     get successMessage() { return $('[class="alert alert-success"]') }
     get orderPlacedText() { return $('[data-qa="order-placed"]') }
 
-    async fillPaymentDetails(nameOnCard, cardNumber, expiryMonth, expiryYear, cvv) {
+    async fillPaymentInfo(nameOnCard, cardNumber, expiryMonth, expiryYear, cvv) {
         await this.waitForDisplayed(this.nameOnCardInput)
         await this.nameOnCardInput.setValue(nameOnCard)
         await this.cardNumberInput.setValue(cardNumber)
@@ -21,8 +21,7 @@ class PaymentPage extends Page {
     }
 
     async submitPayment() {
-        // Use JavaScript click to bypass any blocking elements
-        await browser.execute((el) => el.click(), this.payNowButton)
+        await this.click(this.payNowButton)
     }
 
     async verifyOrderPlaced() {
@@ -30,10 +29,9 @@ class PaymentPage extends Page {
         return await this.orderPlacedText.isDisplayed()
     }
 
-    async fillAndSubmitPayment(nameOnCard, cardNumber, expiryMonth, expiryYear, cvv) {
-        await this.fillPaymentDetails(nameOnCard, cardNumber, expiryMonth, expiryYear, cvv)
-        await this.submitPayment()
-    }
+    //async fillPaymentInfo(nameOnCard, cardNumber, expiryMonth, expiryYear, cvv) {
+        //await this.fillPaymentDetails(nameOnCard, cardNumber, expiryMonth, expiryYear, cvv)
+    //}
 }
 
 module.exports = new PaymentPage()

@@ -14,7 +14,7 @@ describe('Demo TestCase1 test', () => {
 
 
         // *** click on Signup/Login button ***
-        await signup.signup('Jesse', 'jesse.hui+097@ii.co.uk')
+        await signup.signup('Jesse', 'jesse.hui+105@ii.co.uk')
         await expect(await signup.accountInfoHeading).toBeDisplayed()
 
 
@@ -94,7 +94,7 @@ describe('Demo TestCase1 test', () => {
         await $('[class="btn btn-default check_out"]').click()
 
         // *** Enter payment details: Name on Card, Card Number, CVC, Expiration date ***
-        await paymentPage.fillAndSubmitPayment('ABC tester', '1234 5678 9012 3456', '123', '12', '2030')
+        await paymentPage.fillPaymentInfo('ABC tester', '1234 5678 9012 3456', '123', '12', '2030')
         await browser.pause(5000)
 
         // *** submit payment ***
@@ -103,12 +103,12 @@ describe('Demo TestCase1 test', () => {
 
         // *** Verify success message ***
         await expect(paymentPage.orderPlacedText).toBeDisplayed()
+        await browser.pause(5000) 
 
 
-
-
-        
-
+        //*** delete account and check text ***
+        await signup.deleteAccount()
+        await expect(signup.accountDeletedText).toBeDisplayed()
         
         
     })
