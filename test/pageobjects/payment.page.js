@@ -28,10 +28,6 @@ class PaymentPage extends Page {
         await this.waitForDisplayed(this.successMessage)
         return await this.orderPlacedText.isDisplayed()
     }
-
-    //async fillPaymentInfo(nameOnCard, cardNumber, expiryMonth, expiryYear, cvv) {
-        //await this.fillPaymentDetails(nameOnCard, cardNumber, expiryMonth, expiryYear, cvv)
-    //}
 }
 
 module.exports = new PaymentPage()
