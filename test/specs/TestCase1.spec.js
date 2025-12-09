@@ -14,7 +14,7 @@ describe('Demo TestCase1 test', () => {
 
         // Fill in the signup form
         await $('[data-qa="signup-name"]').setValue('Jesse')
-        await $('[data-qa="signup-email"]').setValue('Jesse.hui+061@ii.co.uk')
+        await $('[data-qa="signup-email"]').setValue('Jesse.hui+063@ii.co.uk')
         await $('[data-qa="signup-button"]').click()
         await expect(await $('b=Enter Account Information')).toBeDisplayed()
 

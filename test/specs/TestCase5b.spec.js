@@ -19,7 +19,6 @@ describe('Demo TestCase1 test', () => {
 
         // *** Check Email already exists text ***
                 await expect(await loginPage.emailAlreadyExistsError).toBeDisplayed()
-        await browser.pause(3000)
                 
 })
 })
