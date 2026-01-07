@@ -1,5 +1,4 @@
 const signup = require('../pageobjects/signup.page')
-const loginPage = require('../pageobjects/login.page')
 const contactUs = require('../pageobjects/contact.page')
 const paymentPage = require('../pageobjects/payment.page')
 const { expect, browser, $, $$ } = require('@wdio/globals')
@@ -15,13 +14,22 @@ describe('Demo TestCase1 test', () => {
 
 
         // *** click on Signup/Login button ***
-        // *** Fill in login form ***
-        await loginPage.login('jesse.hui+075@ii.co.uk', '1234567890aB')
-        await browser.pause(2000)
+        await signup.signup('Jesse', 'jesse.hui+105@ii.co.uk')
+        await expect(await signup.accountInfoHeading).toBeDisplayed()
 
-        
-        // ***Check logged in as text***
-        await loginPage.isLoggedInAs('Jesse', 5000)
+
+        // *** Fill in the signup form ***
+        await signup.fillAccountInformation('1234567890aB', '1', '1', '1990')
+        await signup.selectNewsletters()
+        await browser.pause(2000)
+        await signup.fillAddressInformation('Jesse', 'Hui', '1 Jesse Street', 'United States', 'Test State', 'Test City', '12345', '1234567890')
+        await browser.pause(2000)
+       
+        // *** Check created text and logged in as text ***
+        await signup.createAccount()
+                await expect(signup.accountCreatedText).toBeDisplayed()
+        await signup.continueAfterCreation()
+                await expect(signup.loggedInText).toBeDisplayed()
 
 
         // *** Click Add to cart ***
@@ -63,7 +71,6 @@ describe('Demo TestCase1 test', () => {
         }, { timeout: 5000 })
         await browser.pause(2000)
 
-
         // *** Click "View Cart" button in the modal using JavaScript ***
         const viewCartButton = await $('[id="cartModal"] [href="/view_cart"]')
         await browser.execute((el) => el.click(), viewCartButton)
@@ -83,20 +90,16 @@ describe('Demo TestCase1 test', () => {
         await $('[name="message"]').setValue('Hello, Testing 123 abc XYZ 890.')
         await browser.pause(2000)
 
-
         // *** Click Place Order button ***
         await $('[class="btn btn-default check_out"]').click()
-        await signup.acceptCookies()
 
         // *** Enter payment details: Name on Card, Card Number, CVC, Expiration date ***
         await paymentPage.fillPaymentInfo('ABC tester', '1234 5678 9012 3456', '123', '12', '2030')
         await browser.pause(5000)
 
-
         // *** submit payment ***
         await paymentPage.submitPayment()
         await browser.pause(5000)
-
 
         // *** Verify success message ***
         await expect(paymentPage.orderPlacedText).toBeDisplayed()

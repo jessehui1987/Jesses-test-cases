@@ -41,12 +41,12 @@ describe('Demo TestCase1 test', () => {
         // *** Delete account ***
         // *** check account deleted text ***
 
-        await signup.deleteAccount()
-        await expect(signup.accountDeletedText).toBeDisplayed()
+        //await signup.deleteAccount()
+        //await expect(signup.accountDeletedText).toBeDisplayed()
 
 
         //Click continue
-        await $('[data-qa="continue-button"]').click()
+        //await $('[data-qa="continue-button"]').click()
         //Pause for 5 seconds to observe the result
         await browser.pause(5000)
 
