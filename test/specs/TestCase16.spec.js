@@ -61,6 +61,7 @@ describe('Demo TestCase1 test', () => {
                 return false
             }
         }, { timeout: 5000 })
+        await signup.dismissPopup()
         await browser.pause(2000)
 
 
@@ -68,15 +69,18 @@ describe('Demo TestCase1 test', () => {
         const viewCartButton = await $('[id="cartModal"] [href="/view_cart"]')
         await browser.execute((el) => el.click(), viewCartButton)
         await expect(await $('[id="cart_info_table"]')).toBeDisplayed()
+        await signup.dismissPopup()
 
 
         // *** proceed to checkout ***
         await $('[class="btn btn-default check_out"]').click()
+        await signup.dismissPopup()
 
 
         // *** Check address details and review your order headings ***
         await expect(await $('h2=Address Details')).toBeDisplayed()
         await expect(await $('h2=Review Your Order')).toBeDisplayed()
+        await signup.dismissPopup()
 
 
         // *** Enter description in comment text area and place order ***
@@ -87,6 +91,7 @@ describe('Demo TestCase1 test', () => {
         // *** Click Place Order button ***
         await $('[class="btn btn-default check_out"]').click()
         await signup.acceptCookies()
+        
 
         // *** Enter payment details: Name on Card, Card Number, CVC, Expiration date ***
         await paymentPage.fillPaymentInfo('ABC tester', '1234 5678 9012 3456', '123', '12', '2030')
@@ -95,11 +100,13 @@ describe('Demo TestCase1 test', () => {
 
         // *** submit payment ***
         await paymentPage.submitPayment()
+        await signup.dismissPopup()
         await browser.pause(5000)
 
 
         // *** Verify success message ***
         await expect(paymentPage.orderPlacedText).toBeDisplayed()
+        await signup.dismissPopup()
         await browser.pause(5000) 
 
 

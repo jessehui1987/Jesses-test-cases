@@ -14,7 +14,7 @@ describe('Demo TestCase1 test', () => {
 
 
         // *** click on Signup/Login button ***
-        await signup.signup('Jesse', 'jesse.hui+105@ii.co.uk')
+        await signup.signup('Jesse', 'jesse.hui+106@ii.co.uk')
         await expect(await signup.accountInfoHeading).toBeDisplayed()
 
 
@@ -104,7 +104,6 @@ describe('Demo TestCase1 test', () => {
         // *** Verify success message ***
         await expect(paymentPage.orderPlacedText).toBeDisplayed()
         await browser.pause(5000) 
-
 
         //*** delete account and check text ***
         await signup.deleteAccount()

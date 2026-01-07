@@ -22,13 +22,9 @@ class PaymentPage extends Page {
 
     async submitPayment() {
         const btn = await this.payNowButton
-        try {
-            await btn.waitForClickable({ timeout: 10000 })
-            await btn.click()
-        } catch (err) {
-            await browser.execute((el) => el.scrollIntoView({block: 'center'}), btn)
-            await browser.execute((el) => el.click(), btn)
-        }
+        // proactively dismiss visible popups before clicking
+        try { await this.dismissPopup() } catch (e) { }
+        await this.safeClick(btn)
     }
 
     async verifyOrderPlaced() {
